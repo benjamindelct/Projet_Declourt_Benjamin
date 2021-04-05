@@ -57,7 +57,7 @@ class Menu:
                 else:
                     print("Mauvaise saisie")
             elif self.gameState == self.gameState.RESEAU:
-                st = int(input("--- RESEAU ---\n 1-Client\n 2-Serveur\n 3-Retour\n >> "))
+                st = int(input("--- RESEAU ---\n 1-Rejoindre une partie\n 2-Heberger une partie\n 3-Retour\n >> "))
                 if st == 1:
                     self.gameState = self.gameState.CLIENT
                 elif st == 2:
