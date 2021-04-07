@@ -2,6 +2,7 @@ from enum import Enum
 from Client import *
 from Serveur import *
 from puissance4C import p4c
+from puissance4C_IA import p4c_ia
 from Score import *
 
 class Menu:
@@ -71,7 +72,7 @@ class Menu:
                 self.gameState = self.gameState.MENU
 
             elif self.gameState == self.gameState.JVSIA:
-                print("Pas encore développé")
+                p4c_ia(self.id)
                 self.gameState = self.gameState.MENU
 
             elif self.gameState == self.gameState.CLIENT:

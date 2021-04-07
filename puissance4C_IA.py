@@ -35,7 +35,7 @@
     p4c()
 """
 
-from platform import system
+# from platform import system
 import random
 import time
 from Score import *
@@ -342,9 +342,16 @@ def add_score(nom1, nom2, winner):
         s.add_winner(nom1[0], nom2[0], 2)
 
 
+def choix_ia(matrice, jeton):
+    list_colonne = []
+
+    for col in range(7):
+        if matrice[5][col] == ".":
+                list_colonne.append(col)
+    return random.choice(list_colonne)
 
 
-def p4c():
+def p4c_ia(id):
     """Lance le jeu"""
 
     global candidates
@@ -363,31 +370,12 @@ def p4c():
     # Noms des joueurs et qui commence ?
     nom1 = []
     nom2 = []
-    poub = ""
-    while poub == "":
-        poub = input("· Nom du joueur qui commence    ?" + reset + " ")
-    nom1.append(poub)
-    poub = ""
-    while poub == "":
-        poub = input(couljeu + "· Nom du 2è joueur              ?" + reset + " ")
-    nom2.append(poub)
+    nom1.append(id)
+    nom2.append("ia")
 
-    # Le jour qui commence choisit son jeton. après cela, chaque()
-    # joueur est identifié par une liste ["nom", "jeton"] dans
-    # les variables nom1 et nom2. La variable nom correspond
-    # au joueur courant
-    jeton = ''
-    while jeton not in ["o", "O", "x", "X"]:
-        print(couljeu + "· Quelle jeton commence " + _a(nom1[0], 9))
-        print("·" + " " * 20 + pionjaune + " o " + reset + couljeu +
-              " ou " + reset + pionrouge + " x " + reset + couljeu +
-              " ?" + reset + " ", end='')
-        jeton = input().upper()
-    nom1.append(jeton)
-    if jeton == "X":
-        nom2.append("O")
-    else:
-        nom2.append("X")
+    nom1.append("X")
+    nom2.append("O")
+
     nom = nom1
     message_fin = "\n\nAu revoir, " + nom1[0] + " et " + nom2[0] + ",\nà bientôt !"
 
@@ -399,18 +387,20 @@ def p4c():
         print_mat_str(matrice)
         if nom[1] == "O":
             print(pionjaune, nom[0] + couljeu)
-            pion = pionjaune + " o " + reset + couljeu
+            print("L'ia joue")
+            col = choix_ia(matrice, "O")
         if nom[1] == "X":
             print(pionrouge, nom[0] + couljeu)
             pion = pionrouge + " x " + reset + couljeu
-        print("Aux", pion, "de jouer. f = fin.")
-        col = ''
-        while col not in ["1", "2", "3", "4", "5", "6", "7", "f", "F"]:
-            col = input("Quelle colonne 1-7 joues-tu, " + nom[0] + " ? ")
-            if col.lower() == "f":
-                print(reset + message_fin)
-                return
-        col = int(col)
+            print("Aux", pion, "de jouer. f = fin.")
+            col = ''
+            while col not in ["1", "2", "3", "4", "5", "6", "7", "f", "F"]:
+                col = input("Quelle colonne 1-7 joues-tu, " + nom[0] + " ? ")
+                if col.lower() == "f":
+                    print(reset + message_fin)
+                    return
+            col = int(col)
+
         # on essaie de placer le pion
         mat = placer_pion(nom[1], col - 1, matrice)
         # on adapte la matrice courante

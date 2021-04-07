@@ -36,8 +36,6 @@
 """
 
 
-from platform import system
-import random
 import time
 from Score import *
 
